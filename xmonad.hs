@@ -43,7 +43,7 @@ myTerminal = "alacritty"
 myBrowser = "mircrosoft-edge-dev"
 ---- Key binding to toggle the gap for the bar.
 myModMask       = mod1Mask
-toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask, xK_b)
+toggleStrutsKey XConfig {XMonad.modMask = modMask}= (modMask, xK_b)
 --myWorkspaces    = ["1:Web","2:term","3:mail","4:files","5:steam","6","7","8","9"]
 xmobarEscape = concatMap doubleLts
   where doubleLts '<' = "<<"
@@ -61,16 +61,11 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     [ ((modMask,              xK_Return), spawn myTerminal)
  
     -- launch dmenu
-    , ((modMask,               xK_d     ), spawn "exe=`dmenu_path | dmenu` && eval \"exec $exe\"")
+    , ((modMask,               xK_d     ), spawn "dmenu_run")
  
     , ((modMask,               xK_i     ), spawn myBrowser)
-    -- launch gmrun
-    , ((modMask .|. shiftMask, xK_p     ), spawn "rofi -show")
    -- close focused window    
     , ((modMask .|. shiftMask, xK_c     ), kill)
--- switch keyboard layout
-    , ((modMask .|. mod1Mask,               xK_u     ), spawn "setxkbmap -layout us")
-    , ((modMask .|. mod1Mask, xK_d     ), spawn "setxkbmap -layout dvorak") 
     --- Rotate through the available layout algorithms
     , ((modMask,               xK_space ), sendMessage NextLayout)
  
