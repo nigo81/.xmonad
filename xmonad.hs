@@ -67,7 +67,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     -- launch gmrun
     , ((modMask .|. shiftMask, xK_p     ), spawn "rofi -show")
    -- close focused window    
-    , ((modMask .|. shiftMask, xK_BackSpace     ), kill)
+    , ((modMask .|. shiftMask, xK_c     ), kill)
 -- switch keyboard layout
     , ((modMask .|. mod1Mask,               xK_u     ), spawn "setxkbmap -layout us")
     , ((modMask .|. mod1Mask, xK_d     ), spawn "setxkbmap -layout dvorak") 
@@ -135,7 +135,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))
  
     -- Restart xmonad
-    , ((mod1Mask .|. shiftMask             , xK_r     ), spawn "xmonad --recompile; xmonad --restart")
+    , ((modMask              , xK_q     ), spawn "xmonad --recompile; xmonad --restart")
     , ((modMask              , xK_o    ), namedScratchpadAction myScratchPads "terminal")
     , ((modMask              , xK_p    ), namedScratchpadAction myScratchPads "music")
     , ((modMask              , xK_f), sendMessage (Toggle "Full"))
