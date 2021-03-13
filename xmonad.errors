@@ -1,0 +1,7 @@
+
+xmonad.hs:191:1: warning: [-Wtabs]
+    Tab character found here, and in 15 further locations.
+    Please use spaces instead.
+    |
+191 |                 , NS "music" spawnPav findPav  managePav
+    | ^^^^^^^^
