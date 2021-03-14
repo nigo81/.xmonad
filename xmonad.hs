@@ -61,6 +61,7 @@ xmobarEscape = concatMap doubleLts
   where doubleLts '<' = "<<"
         doubleLts x    = [x]
 myWorkspaces            :: [String]
+windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 myWorkspaces            = clickable . (map xmobarEscape) $ [" 1 "," 2 "," 3 ", " 4 "," 5 ", " 6 "," 7 "," 8 "," 9 "]
                                                                               
   where                                                                       
@@ -334,9 +335,11 @@ main = do
 	   ,ppVisible = xmobarColor "#7F7F7F" "" 
 	   ,ppTitle = xmobarColor "#222222" "" 
 	   ,ppCurrent = xmobarColor "#2E9AFE" ""
-           ,ppHidden  = xmobarColor "#7F7F7F" ""
+       ,ppHidden  = xmobarColor "#7F7F7F" ""
 	   ,ppLayout = xmobarColor"#7F7F7F" ""
-           ,ppUrgent = xmobarColor "#900000" "" . wrap "[" "]" 
+       ,ppUrgent = xmobarColor "#900000" "" . wrap "[" "]" 
+       , ppExtras  = [windowCount]                           -- # of windows current workspace
+       , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
         }
 	, manageHook = manageDocks <+> myManageHook
 	, startupHook = myStartupHook
