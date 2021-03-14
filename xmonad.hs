@@ -48,7 +48,7 @@ import XMonad.Layout.SubLayouts
 import XMonad.Layout.ResizableTile
 --Actions
 import XMonad.Actions.WithAll (sinkAll, killAll)
-
+import XMonad.Actions.CycleWS (moveTo, WSType(NonEmptyWS), Direction1D(Next,Prev))
 ---myBar = "xmobar -x0 /home/mike/.xmonad/xmobarrc"
 myTerminal = "alacritty"
 
@@ -118,10 +118,16 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask .|. shiftMask, xK_k     ), windows W.swapUp    )
  
     -- Shrink the master area
-    , ((modMask,               xK_h     ), sendMessage Shrink)
+    , ((modMask .|. shiftMask, xK_h     ), sendMessage Shrink)
  
     -- Expand the master area
-    , ((modMask,               xK_l     ), sendMessage Expand)
+    , ((modMask .|. shiftMask, xK_l     ), sendMessage Expand)
+
+    -- priewscreen
+    , ((modMask,               xK_h     ), XMonad.Actions.CycleWS.moveTo Prev NonEmptyWS)
+    -- nextscreen
+    , ((modMask,               xK_l     ), XMonad.Actions.CycleWS.moveTo Next NonEmptyWS)
+    --
     -- Increase/decrease spacing (gaps)
     , ((modMask,               xK_i     ), incWindowSpacing 4)
     , ((modMask,               xK_n     ), decWindowSpacing 4)
