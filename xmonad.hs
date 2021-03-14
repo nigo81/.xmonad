@@ -46,6 +46,9 @@ import XMonad.Layout.Simplest
 import XMonad.Layout.LimitWindows (limitWindows, increaseLimit, decreaseLimit)
 import XMonad.Layout.SubLayouts
 import XMonad.Layout.ResizableTile
+--Actions
+import XMonad.Actions.WithAll (sinkAll, killAll)
+
 ---myBar = "xmobar -x0 /home/mike/.xmonad/xmobarrc"
 myTerminal = "alacritty"
 
@@ -75,6 +78,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask,               xK_c     ), spawn myBrowser)
    -- close focused window    
     , ((modMask .|. shiftMask, xK_c     ), kill)
+    , ((modMask .|. shiftMask, xK_a     ), killAll)
     --- Rotate through the available layout algorithms
     , ((modMask,               xK_space ), sendMessage NextLayout)
  
