@@ -186,7 +186,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     --
     [((m .|. modMask, k), windows $ f i)
         | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
-        , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
+        , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)
+        , (\i -> W.greedyView i . W.shift i, shiftMask) ]] -- 可以修改最后的shiftMask为controlMask这样就是用的control键
     ++
  
     --
