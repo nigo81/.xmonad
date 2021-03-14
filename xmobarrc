@@ -1,6 +1,8 @@
-Config {font = "xft:SFN 
-	display:size=12,FontAwesome:size=11" 
-
+Config {
+        font ="xft:Fira Code Retina:size=12",
+       , additionalFonts = [ "xft:Mononoki Nerd Font:pixelsize=11:antialias=true:hinting=true"
+                           , "xft:FontAwesome:pixelsize=13"
+                           ]
 --font = "xft:Droid Sans Mono for Powerline:size=9"
 
              , bgColor = "#333333"
@@ -16,15 +18,13 @@ Config {font = "xft:SFN
 	     "-L", "-15", "-H", "-5",
 	     "-l", "darkgrey", "-m", "white", "-h", "grey"]
 	     600
-             , Run Com "/bin/bash" ["-c", "~/.xmonad/getvolume" ] "myvolume" 12
 	     , Run Date "%a %b %_d %Y | <fc=#2E9AFE></fc> %H:%M" "date" 12
+           -- Script that dynamically adjusts xmobar padding depending on number of trayer icons.
+         , Run Com "/bin/bash" ["-c", "~/.xmonad/getvolume" ] "myvolume" 12
+         , Run Com "/home/nigo/.xmonad/trayer-padding-icon.sh" [] "trayerpad" 20
 	     , Run UnsafeStdinReader
 	     ]
 	     , sepChar = "%"
 	     , alignSep = "}{"
-             , template = "<fc=#DF7401>λ</fc> %UnsafeStdinReader% }{ <fc=#AEB404></fc><fc=#808080>  [%cpu%]</fc> | <fc=#B40404></fc><fc=#808080>[%memory%]</fc> | <fc=#FF0000></fc><fc=#808080>[%battery%]</fc> | <fc=#268BD2></fc> <fc=#808080>[%myvolume%]</fc> | <fc=#2E9AFE> </fc><fc=#808080>%date%</fc> |"}
-
-    
-   
-
-
+         -- , template = "<fc=#DF7401>λ</fc> %UnsafeStdinReader% }{ <fc=#AEB404></fc><fc=#808080>  [%cpu%]</fc> | <fc=#B40404></fc><fc=#808080>[%memory%]</fc> | <fc=#FF0000></fc><fc=#808080>[%battery%]</fc> | <fc=#268BD2></fc>  | <fc=#2E9AFE></fc><fc=#808080>%date%</fc> | %trayerpad%"}
+             , template = "<fc=#DF7401>λ</fc> %UnsafeStdinReader% }{ <fc=#AEB404></fc><fc=#808080>  [%cpu%]</fc> | <fc=#B40404></fc><fc=#808080>[%memory%]</fc> | <fc=#FF0000></fc><fc=#808080>[%battery%]</fc> | <fc=#268BD2></fc> <fc=#808080>[%myvolume%]</fc> | <fc=#2E9AFE> </fc><fc=#808080>%date%</fc> | %trayerpad%"}
