@@ -124,16 +124,16 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     -- Use this binding with avoidStruts from Hooks.ManageDocks.
     -- See also the statusBar function from Hooks.DynamicLog.
     --
-     , ((modMask              , xK_b     ), sendMessage ToggleStruts)
+     , ((modMask              , xK_f     ), sendMessage ToggleStruts)
  
     -- Quit xmonad
-    , ((modMask .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))
+    -- , ((modMask .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))
  
     -- Restart xmonad
     , ((modMask              , xK_q     ), spawn "xmonad --recompile; xmonad --restart")
     , ((modMask              , xK_o    ), namedScratchpadAction myScratchPads "terminal")
     , ((modMask              , xK_p    ), namedScratchpadAction myScratchPads "music")
-    , ((modMask              , xK_f), sendMessage (Toggle "Full"))
+    -- , ((modMask              , xK_f), sendMessage (Toggle "Full"))
 ----BSP Layout
 --    , ((modMask .|. mod4Mask,               xK_l     ), sendMessage $ ExpandTowards R)
 --    , ((modMask .|. mod4Mask,               xK_h     ), sendMessage $ ExpandTowards L)
@@ -244,7 +244,7 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 
 myLayoutHook = avoidStruts (
 --       toggleLayouts Full (Grid) ||| toggleLayouts Full (ThreeColMid 1 (1/20) (1/2)) ||| simpleTabbed ||| toggleLayouts Full (tiled) ||| Mirror tiled)
-       tiled ||| simpleTabbed   ||| Full )
+       tiled ||| Full )
         where
     -- default tiling algorithm partitions the screen into two panes
     tiled   = Tall nmaster delta ratio
