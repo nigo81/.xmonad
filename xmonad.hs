@@ -38,9 +38,18 @@ import XMonad.Layout.ToggleLayouts          -- Full window at any time
 import XMonad.Layout.BinarySpacePartition
 import XMonad.Layout.Mosaic
 import XMonad.Layout.ThreeColumns
+import XMonad.Layout.LayoutModifier
+import XMonad.Layout.Spacing
+import XMonad.Layout.Renamed
+import XMonad.Layout.WindowNavigation
+import XMonad.Layout.Simplest
+import XMonad.Layout.LimitWindows (limitWindows, increaseLimit, decreaseLimit)
+import XMonad.Layout.SubLayouts
+import XMonad.Layout.ResizableTile
 ---myBar = "xmobar -x0 /home/mike/.xmonad/xmobarrc"
 myTerminal = "alacritty"
-myBrowser = "mircrosoft-edge-dev"
+
+myBrowser = "microsoft-edge-dev"
 ---- Key binding to toggle the gap for the bar.
 myModMask       = mod1Mask
 toggleStrutsKey XConfig {XMonad.modMask = modMask}= (modMask, xK_b)
@@ -63,7 +72,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     -- launch dmenu
     , ((modMask,               xK_d     ), spawn "dmenu_run")
  
-    , ((modMask,               xK_i     ), spawn myBrowser)
+    , ((modMask,               xK_c     ), spawn myBrowser)
    -- close focused window    
     , ((modMask .|. shiftMask, xK_c     ), kill)
     --- Rotate through the available layout algorithms
@@ -109,6 +118,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
  
     -- Expand the master area
     , ((modMask,               xK_l     ), sendMessage Expand)
+    -- Increase/decrease spacing (gaps)
+    , ((modMask,               xK_i     ), incWindowSpacing 4)
+    , ((modMask,               xK_n     ), decWindowSpacing 4)
  
     -- Push window back into tiling
 
@@ -182,6 +194,7 @@ myStartupHook = do
         spawnOnce "mate-power-manager &"
         spawnOnce "albert &"
         spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x282c34  --height 22 &"
+        spawnOnce "cd ~/software/clash/ && nohup ./clash -d . >/dev/null 2>&1 &"
 
 myScratchPads = [ NS "terminal" spawnTerm  findTerm manageTerm
 		, NS "music" spawnPav findPav  managePav
@@ -244,7 +257,7 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 
 myLayoutHook = avoidStruts (
 --       toggleLayouts Full (Grid) ||| toggleLayouts Full (ThreeColMid 1 (1/20) (1/2)) ||| simpleTabbed ||| toggleLayouts Full (tiled) ||| Mirror tiled)
-       tiled ||| Full )
+       tall ||| Full )
         where
     -- default tiling algorithm partitions the screen into two panes
     tiled   = Tall nmaster delta ratio
@@ -257,6 +270,41 @@ myLayoutHook = avoidStruts (
  
     -- Percent of screen to increment by when resizing panes
 delta = 3/100 
+
+
+--Makes setting the spacingRaw simpler to write. The spacingRaw module adds a configurable amount of space around windows.
+mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
+mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
+
+-- Below is a variation of the above except no borders are applied
+-- if fewer than two windows. So a single window has no gaps.
+mySpacing' :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
+mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
+
+-- limitWindows n sets maximum number of windows displayed for layout.
+-- mySpacing n sets the gap size around the windows.
+tall     = renamed [Replace "tall"]
+           $ windowNavigation
+           $ addTabs shrinkText myTabTheme
+           $ subLayout [] (smartBorders Simplest)
+           $ limitWindows 12
+           $ mySpacing 8
+           $ ResizableTall 1 (3/100) (1/2) []
+
+-- setting colors for tabs layout and tabs sublayout.
+myTabTheme = def { fontName            = myFont
+                 , activeColor         = "#46d9ff"
+                 , inactiveColor       = "#313846"
+                 , activeBorderColor   = "#46d9ff"
+                 , inactiveBorderColor = "#282c34"
+                 , activeTextColor     = "#282c34"
+                 , inactiveTextColor   = "#d0d0d0"
+                 }
+myFont :: String
+myFont = "xft:SauceCodePro Nerd Font Mono:regular:size=9:antialias=true:hinting=true"
+
+
+
 ----Main Function
 main = do
     xmproc <- spawnPipe ("xmobar $HOME/.xmonad/xmobarrc")

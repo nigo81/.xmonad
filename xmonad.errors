@@ -1,7 +1,7 @@
 
-xmonad.hs:187:1: warning: [-Wtabs]
+xmonad.hs:200:1: warning: [-Wtabs]
     Tab character found here, and in 15 further locations.
     Please use spaces instead.
     |
-187 |                 , NS "music" spawnPav findPav  managePav
+200 |                 , NS "music" spawnPav findPav  managePav
     | ^^^^^^^^
