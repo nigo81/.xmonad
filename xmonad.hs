@@ -49,7 +49,7 @@ xmobarEscape = concatMap doubleLts
   where doubleLts '<' = "<<"
         doubleLts x    = [x]
 myWorkspaces            :: [String]
-myWorkspaces            = clickable . (map xmobarEscape) $ ["1:\xf269","2:\xf120","3:\xf0e0", "4:\xf07c","5:\xf1b6","6:\xf281","7:\xf04b","8:\xf167","9"]
+myWorkspaces            = clickable . (map xmobarEscape) $ [" 1 "," 2 "," 3 ", " 4 "," 5 ", " 6 "," 7 "," 8 "," 9 "]
                                                                               
   where                                                                       
          clickable l = [ "<action=xdotool key super+" ++ show (n) ++ ">" ++ ws ++ "</action>" |
@@ -244,7 +244,7 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 
 myLayoutHook = avoidStruts (
 --       toggleLayouts Full (Grid) ||| toggleLayouts Full (ThreeColMid 1 (1/20) (1/2)) ||| simpleTabbed ||| toggleLayouts Full (tiled) ||| Mirror tiled)
-       toggleLayouts Full (tiled) ||| toggleLayouts Full (Grid) ||| toggleLayouts Full (ThreeColMid 1 (1/20) (1/2)) ||| simpleTabbed  )
+       tiled ||| simpleTabbed   ||| Full )
         where
     -- default tiling algorithm partitions the screen into two panes
     tiled   = Tall nmaster delta ratio
