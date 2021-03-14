@@ -74,6 +74,10 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
  
     -- launch dmenu
     , ((modMask,               xK_d     ), spawn "dmenu_run")
+    -- swich wallpaper next
+    , ((modMask,               xK_b     ), spawn "variety -n")
+    -- swich wallpaper preview
+    , ((modMask .|. shiftMask, xK_b     ), spawn "variety -p")
  
     , ((modMask,               xK_c     ), spawn myBrowser)
    -- close focused window    

@@ -26,4 +26,4 @@ Config {
 	     ]
 	     , sepChar = "%"
 	     , alignSep = "}{"
-         , template = "<fc=#DF7401>λ</fc> %UnsafeStdinReader% }{ <fc=#AEB404>CPU</fc><fc=#808080>  [%cpu%]</fc> | <fc=#B40404>Mem</fc><fc=#808080>[%memory%]</fc> | <fc=#FF0000>Power</fc><fc=#808080>[%battery%]</fc> | <fc=#268BD2>Volume</fc> <fc=#808080>[%myvolume%]</fc> | <fc=#2E9AFE>Date </fc><fc=#808080>%date%</fc> | %trayerpad%"}
+         , template = "<fc=#DF7401>π</fc> %UnsafeStdinReader% }{ <fc=#AEB404>CPU</fc><fc=#808080>  [%cpu%]</fc> | <fc=#B40404>Mem</fc><fc=#808080>[%memory%]</fc> | <fc=#FF0000>Power</fc><fc=#808080>[%battery%]</fc> | <fc=#268BD2>Volume</fc> <fc=#808080>[%myvolume%]</fc> | <fc=#2E9AFE>Date </fc><fc=#808080>%date%</fc> | %trayerpad%"}
