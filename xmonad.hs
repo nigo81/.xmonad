@@ -81,6 +81,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask .|. shiftMask, xK_b     ), spawn "variety -p")
  
     , ((modMask,               xK_c     ), spawn myBrowser)
+    -- screenshot
+    , ((modMask,               xK_s     ), spawn "flameshot gui")
    -- close focused window    
     , ((modMask .|. shiftMask, xK_c     ), kill)
     , ((modMask .|. shiftMask, xK_a     ), killAll)
