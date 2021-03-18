@@ -54,7 +54,7 @@ myTerminal = "alacritty"
 
 myBrowser = "microsoft-edge-dev"
 ---- Key binding to toggle the gap for the bar.
-myModMask       = mod1Mask
+myModMask       = mod4Mask
 toggleStrutsKey XConfig {XMonad.modMask = modMask}= (modMask, xK_b)
 --myWorkspaces    = ["1:Web","2:term","3:mail","4:files","5:steam","6","7","8","9"]
 xmobarEscape = concatMap doubleLts
