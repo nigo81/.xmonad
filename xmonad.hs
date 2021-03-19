@@ -251,14 +251,24 @@ myScratchPads = [ NS "terminal" spawnTerm  findTerm manageTerm
  
 myManageHook = composeAll
     [ className =? "stalonetray"    --> doIgnore
-      , className =? "Steam"        --> doFullFloat
+      , className =? "Chromium"     --> doShift ( myWorkspaces !! 1 )
+      , className =? "Firefox"     --> doShift ( myWorkspaces !! 1 )
+      , className =? "Microsoft-edge-dev"     --> doShift ( myWorkspaces !! 1 )
+      , className =? "Et"     --> doShift ( myWorkspaces !! 2 )
+      , className =? "Wps"     --> doShift ( myWorkspaces !! 3 )
+      , title =? "Navicat Premium"     --> doShift ( myWorkspaces !! 4 )
+      , className =? "kdenlive"     --> doShift ( myWorkspaces !! 6 )
+      , className =? "mpv"     --> doShift ( myWorkspaces !! 6 )
+      , className =? "mpv"     --> doFullFloat
+      , className =? "vlc"     --> doShift ( myWorkspaces !! 6 )
+      , className =? "wechat.exe"     --> doShift ( myWorkspaces !! 7 )
+      , className =? "VirtualBox Manager"     --> doShift ( myWorkspaces !! 8 )
       , className =? "Firefox"      --> doFullFloat
-      , title =? "FEZ"              --> doFullFloat
-      , title =? "Don't Starve"     --> doFullFloat
 --      , className =? "mpv"          --> doFullFloat
       , manageDocks
       , isFullscreen                --> (doF W.focusDown <+> doFullFloat)
     ] <+> namedScratchpadManageHook myScratchPads
+    where myWeb = ["chromium"]
 
 -- Mouse bindings
  
@@ -343,7 +353,7 @@ main = do
        , ppExtras  = [windowCount]                           -- # of windows current workspace
        , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
         }
-	, manageHook = manageDocks <+> myManageHook
+	, manageHook = manageDocks <+> myManageHook <+> manageDocks
 	, startupHook = myStartupHook
     , modMask = myModMask
 	
