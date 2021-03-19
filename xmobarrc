@@ -1,5 +1,5 @@
 Config {
-        font ="xft:Fira Code Retina:size=12",
+        font ="xft:Fira Code Retina:size=9",
        , additionalFonts = [ "xft:Mononoki Nerd Font:pixelsize=11:antialias=true:hinting=true"
                            , "xft:FontAwesome:pixelsize=13"
                            ]
