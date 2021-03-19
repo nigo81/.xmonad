@@ -259,7 +259,6 @@ myManageHook = composeAll
       , title =? "Navicat Premium"     --> doShift ( myWorkspaces !! 4 )
       , className =? "kdenlive"     --> doShift ( myWorkspaces !! 6 )
       , className =? "mpv"     --> doShift ( myWorkspaces !! 6 )
-      , className =? "mpv"     --> doFullFloat
       , className =? "vlc"     --> doShift ( myWorkspaces !! 6 )
       , className =? "wechat.exe"     --> doShift ( myWorkspaces !! 7 )
       , className =? "VirtualBox Manager"     --> doShift ( myWorkspaces !! 8 )
