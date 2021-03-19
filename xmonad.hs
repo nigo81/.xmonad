@@ -62,7 +62,7 @@ xmobarEscape = concatMap doubleLts
         doubleLts x    = [x]
 myWorkspaces            :: [String]
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
-myWorkspaces            = clickable . (map xmobarEscape) $ [" 1 "," 2 "," 3 ", " 4 "," 5 ", " 6 "," 7 "," 8 "," 9 "]
+myWorkspaces            = clickable . (map xmobarEscape) $ ["1:dev","2:WWW","3:et", "4:doc","5:db", "6:pic","7:vid","8:chat","9:vm"]
                                                                               
   where                                                                       
          clickable l = [ "<action=xdotool key super+" ++ show (n) ++ ">" ++ ws ++ "</action>" |
