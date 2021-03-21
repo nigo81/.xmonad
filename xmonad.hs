@@ -256,6 +256,7 @@ myManageHook = composeAll
       , className =? "Microsoft-edge-dev"     --> doShift ( myWorkspaces !! 1 )
       , className =? "Et"     --> doShift ( myWorkspaces !! 2 )
       , className =? "Wps"     --> doShift ( myWorkspaces !! 3 )
+      , className =? "Typora"     --> doShift ( myWorkspaces !! 3 )
       , className =? "XMind ZEN"     --> doShift ( myWorkspaces !! 3 )
       , title =? "Navicat Premium"     --> doShift ( myWorkspaces !! 4 )
       , className =? "kdenlive"     --> doShift ( myWorkspaces !! 6 )
