@@ -211,7 +211,7 @@ myStartupHook = do
         spawnOnce "picom &"
         spawnOnce "fcitx &"
         spawnOnce "nm-applet &"
-        spawnOnce "albert &"
+        spawnOnce "utools &"
         spawnOnce "nextcloud &"
         spawnOnce "mailspring &"
         spawnOnce "mate-power-manager &"
@@ -256,18 +256,18 @@ myManageHook = composeAll
       , className =? "Microsoft-edge-dev"     --> doShift ( myWorkspaces !! 1 )
       , className =? "Et"     --> doShift ( myWorkspaces !! 2 )
       , className =? "Wps"     --> doShift ( myWorkspaces !! 3 )
+      , className =? "XMind ZEN"     --> doShift ( myWorkspaces !! 3 )
       , title =? "Navicat Premium"     --> doShift ( myWorkspaces !! 4 )
       , className =? "kdenlive"     --> doShift ( myWorkspaces !! 6 )
       , className =? "mpv"     --> doShift ( myWorkspaces !! 6 )
       , className =? "vlc"     --> doShift ( myWorkspaces !! 6 )
       , className =? "wechat.exe"     --> doShift ( myWorkspaces !! 7 )
       , className =? "VirtualBox Manager"     --> doShift ( myWorkspaces !! 8 )
-      , className =? "Firefox"      --> doFullFloat
+      , className =? "uTools"      --> doFloat
 --      , className =? "mpv"          --> doFullFloat
       , manageDocks
       , isFullscreen                --> (doF W.focusDown <+> doFullFloat)
     ] <+> namedScratchpadManageHook myScratchPads
-    where myWeb = ["chromium"]
 
 -- Mouse bindings
  
