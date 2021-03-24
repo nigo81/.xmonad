@@ -19,6 +19,7 @@ import XMonad.Util.EZConfig(additionalKeys)
 
 import Graphics.X11.ExtraTypes.XF86
 import XMonad.Actions.CycleWS
+import XMonad.Actions.GroupNavigation -- historyHook use for jump to recent window
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageHelpers
@@ -49,6 +50,8 @@ import XMonad.Layout.ResizableTile
 --Actions
 import XMonad.Actions.WithAll (sinkAll, killAll)
 import XMonad.Actions.CycleWS
+--window
+import XMonad.Actions.WindowBringer
 ---myBar = "xmobar -x0 /home/mike/.xmonad/xmobarrc"
 myTerminal = "alacritty"
 
@@ -83,6 +86,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask,               xK_c     ), spawn myBrowser)
     -- screenshot
     , ((modMask,               xK_s     ), spawn "flameshot gui")
+    -- jump to application
+    , ((modMask, xK_g     ), gotoMenu)
+    , ((modMask .|. shiftMask, xK_g     ), bringMenu)
    -- close focused window    
     , ((modMask .|. shiftMask, xK_c     ), kill)
     , ((modMask .|. shiftMask, xK_a     ), killAll)
@@ -96,7 +102,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask,               xK_n     ), refresh)
  
     -- Move focus to the next window
-    , ((modMask,               xK_Tab   ), windows W.focusDown)
+    --, ((modMask,               xK_Tab   ), windows W.focusDown)
+    , ((modMask,               xK_Tab   ), nextMatch History (return True))
+
  
     -- Move focus to the next window
     , ((modMask,               xK_j     ), windows W.focusDown)
@@ -215,7 +223,6 @@ myStartupHook = do
         spawnOnce "nextcloud &"
         spawnOnce "mailspring &"
         spawnOnce "mate-power-manager &"
-        spawnOnce "albert &"
         spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x282c34  --height 22 &"
         spawnOnce "cd ~/software/clash/ && nohup ./clash -d . >/dev/null 2>&1 &"
 
@@ -265,6 +272,7 @@ myManageHook = composeAll
       , className =? "wechat.exe"     --> doShift ( myWorkspaces !! 7 )
       , className =? "VirtualBox Manager"     --> doShift ( myWorkspaces !! 8 )
       , className =? "uTools"      --> doFloat
+      , className =? "VirtualBox Manager"      --> doFloat
 --      , className =? "mpv"          --> doFullFloat
       , manageDocks
       , isFullscreen                --> (doF W.focusDown <+> doFullFloat)
@@ -342,7 +350,7 @@ myFont = "xft:SauceCodePro Nerd Font Mono:regular:size=9:antialias=true:hinting=
 main = do
     xmproc <- spawnPipe ("xmobar $HOME/.xmonad/xmobarrc")
     xmonad $ ewmh $ docks $ defaults {
-	logHook = dynamicLogWithPP $ xmobarPP {
+	logHook =historyHook <+> dynamicLogWithPP  xmobarPP {
 	    ppOutput = hPutStrLn xmproc
 	   ,ppVisible = xmobarColor "#7F7F7F" "" 
 	   ,ppTitle = xmobarColor "#222222" "" 
@@ -352,7 +360,7 @@ main = do
        ,ppUrgent = xmobarColor "#900000" "" . wrap "[" "]" 
        , ppExtras  = [windowCount]                           -- # of windows current workspace
        , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
-        }
+        } 
 	, manageHook = manageDocks <+> myManageHook <+> manageDocks
 	, startupHook = myStartupHook
     , modMask = myModMask
